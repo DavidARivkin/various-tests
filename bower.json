@@ -1,0 +1,22 @@
+{
+  "name": "some-test",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "platform": "Polymer/platform#master",
+    "polymer": "Polymer/polymer#master",
+
+    "usco-client-deps":    "usco/usco-client-deps#master",
+    "usco-asset-manager":  "usco/usco-asset-manager#master",
+
+    "usco-stl-parser":     "usco/usco-stl-parser#master",
+    "usco-amf-parser":     "usco/usco-amf-parser#master",
+    "usco-obj-parser":     "usco/usco-obj-parser#master",
+    "usco-ply-parser":     "usco/usco-ply-parser#master",
+    "usco-ctm-parser":     "usco/usco-ctm-parser#master",
+
+    "usco-amf-serializer": "usco/usco-amf-serializer#master",
+    "usco-stl-serializer": "usco/usco-stl-serializer#master",
+    "usco-obj-serializer": "usco/usco-obj-serializer#master"
+  }
+}
