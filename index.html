@@ -9,6 +9,7 @@
 
       <link rel="import" href="components/usco-asset-manager/usco-asset-manager.html">
     
+      <link rel="import" href="components/usco-xhr-store/xhr-store.html">
 
       <link rel="import" href="components/usco-amf-serializer/amf-serializer.html">
       <link rel="import" href="components/usco-stl-serializer/stl-serializer.html">
@@ -24,6 +25,8 @@
   <usco-client-deps> </usco-client-deps>
 
   <usco-asset-manager>
+    <xhr-store> </xhr-store>
+
     <amf-serializer> </amf-serializer>
     <stl-serializer> </stl-serializer>
     <obj-serializer> </obj-serializer>
@@ -89,8 +92,8 @@
       var assetManager = document.querySelector('usco-asset-manager');
       
       var currentUrl = window.location.origin;
-      assetManager.loadResource(currentUrl+"/demo-data/dolphins.ply");
-
+      var resourceDeferred = assetManager.loadResource(currentUrl+"/demo-data/dolphins.ply");
+      resourceDeferred.promise.then(function(data){console.log("got resource data", data);});
       //var q = require("q");
       //var jszip = require("jszip");
       //console.log("here", jszip);
