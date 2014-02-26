@@ -10,6 +10,7 @@
       <link rel="import" href="components/usco-asset-manager/usco-asset-manager.html">
     
       <link rel="import" href="components/usco-xhr-store/xhr-store.html">
+      <link rel="import" href="components/usco-desktop-store/desktop-store.html">
 
       <link rel="import" href="components/usco-amf-serializer/amf-serializer.html">
       <link rel="import" href="components/usco-stl-serializer/stl-serializer.html">
@@ -26,6 +27,7 @@
 
   <usco-asset-manager>
     <xhr-store> </xhr-store>
+    <desktop-store> </desktop-store>
 
     <amf-serializer> </amf-serializer>
     <stl-serializer> </stl-serializer>
@@ -37,19 +39,55 @@
     <ply-parser> </ply-parser>
     <ctm-parser> </ctm-parser>
   </usco-asset-manager>
+  
+  <drop-test style="width:100%;height:100%;position: absolute;"> </drop-test>
+  
+  <polymer-element name="drop-test" on-drop="{{handleDrop}}" on-dragenter="{{handleDragEnter}}" on-dragover="{{handleDragOver}}"
+on-dragleave="{{handleDragLeave}}">
+    <template>
+      <div style="width:100%;height:100%">
+      Bla bla
+      </div>
+    </template>
+    
+    <script>
+    Polymer('drop-test', {
+      //lifecycle callbacks
+      handleDragOver:function(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+        //console.log("drag over")
+      },
+      handleDragEnter:function(e) {
+        //console.log("drag enter")
+      },
+      handleDragLeave:function(e) {
+        //console.log("drag leave")
+      },
+      handleDrop:function(e)
+      {
+        if (e.preventDefault) {
+          e.preventDefault(); // Necessary. Allows us to drop.
+        }
+        var assetManager = document.querySelector('usco-asset-manager');
+        
+        var data=e.dataTransfer.getData("Text");
+        if(data)
+        {
+          var resourceDeferred = assetManager.loadResource(data);
+          resourceDeferred.promise.then(function(data){console.log("got resource data", data);});
+        }
 
-
-  <!--
-  <amf-serializer> </amf-serializer>
-  <stl-serializer> </stl-serializer>
-  <obj-serializer> </obj-serializer>
-
-  <amf-parser> </amf-parser>
-  <stl-parser> </stl-parser>
-  <obj-parser> </obj-parser>
-  <ply-parser> </ply-parser>
-  <ctm-parser> </ctm-parser>-->
-
+        var files = e.dataTransfer.files;
+        for (var i = 0, f; f = files[i]; i++) {
+          var resourceDeferred = assetManager.loadResource(f);
+          resourceDeferred.promise.then(function(data){console.log("got resource data", data);});
+        }
+      }
+    });
+  </script>
+  </polymer-element>
 
   <script>
     window.addEventListener('polymer-ready', function() {
@@ -90,9 +128,10 @@
       console.log("ctmParser",ctmParser.parser);
 
       var assetManager = document.querySelector('usco-asset-manager');
+      console.log("ASSET manager has these stores:", assetManager.assetManager.stores);
       
       var currentUrl = window.location.origin;
-      var resourceDeferred = assetManager.loadResource(currentUrl+"/demo-data/dolphins.ply");
+      var resourceDeferred = assetManager.loadResource(currentUrl+"/demo-data/hand.ctm");
       resourceDeferred.promise.then(function(data){console.log("got resource data", data);});
       //var q = require("q");
       //var jszip = require("jszip");

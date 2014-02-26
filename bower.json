@@ -8,6 +8,9 @@
 
     "usco-client-deps":    "usco/usco-client-deps#master",
     "usco-asset-manager":  "usco/usco-asset-manager#master",
+    
+    "usco-xhr-store"    :  "usco/usco-xhr-store#master",
+    "usco-desktop-store":  "usco/usco-desktop-store#master",
 
     "usco-stl-parser":     "usco/usco-stl-parser#master",
     "usco-amf-parser":     "usco/usco-amf-parser#master",
